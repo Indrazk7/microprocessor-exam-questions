@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Microprocessor and Microcontroller - PYQs</title>
+    <style>
+      :root {
+        --bg: #d8d8d8;
+        --panel: #f3f2f0;
+        --yellow: #f4d702;
+        --black: #111;
+        --blue: #dfeef7;
+        --light-blue: #dfeef7;
+        --green: #d9f2d0;
+        --red: #ff4a4a;
+        --pink: #f4dfe7;
+        --purple: #dfd4ef;
+        --orange: #f8e3d2;
+        --line: #2d2d2d;
+        --label: #0f0f0f;
+        --answer: #1ca94f;
+        --shadow: #00000030;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: var(--black);
+      }
+
+      body {
+        padding: 20px;
+      }
+
+      #questionsContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .page {
+        width: min(100%, 1280px);
+        min-height: 720px;
+        aspect-ratio: 16 / 9;
+        margin: 0 auto;
+        background: #f6f4f3;
+        border: 4px solid var(--line);
+        box-shadow: 0 12px 18px var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 88px;
+        background: var(--yellow);
+        border-bottom: 4px solid var(--line);
+        font-weight: 900;
+        font-size: clamp(24px, 2.6vw, 54px);
+        letter-spacing: 0.5px;
+        text-transform: none;
+      }
+
+      .meta {
+        display: grid;
+        grid-template-columns: 1.2fr 1.2fr 0.8fr;
+        border-bottom: 4px solid var(--line);
+        background: #ebebeb;
+      }
+
+      .meta-box {
+        padding: 10px 16px;
+        font-weight: 800;
+        font-size: clamp(18px, 1.6vw, 31px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-right: 3px solid var(--line);
+        min-height: 54px;
+      }
+
+      .meta-box:last-child {
+        border-right: none;
+      }
+
+      .meta-box .label {
+        color: var(--label);
+        font-weight: 900;
+      }
+
+      .meta-box .value {
+        margin-left: 8px;
+        color: #0a0a0a;
+      }
+
+      .meta-box .exam-value { color: #1d2a9b; }
+      .meta-box .date-value { color: #112b0d; }
+      .meta-box .shift-value { color: #0d5f2c; }
+
+      .content {
+        display: grid;
+        grid-template-columns: 1.08fr 1fr;
+        height: calc(100% - 166px);
+      }
+
+      .left-panel {
+        padding: 14px 18px 8px 18px;
+        border-right: 4px solid var(--line);
+        background: #f4f4f4;
+      }
+
+      .question-box {
+        font-size: clamp(20px, 2vw, 38px);
+        font-weight: 900;
+        line-height: 1.25;
+        margin-top: 10px;
+        margin-bottom: 12px;
+      }
+
+      .question-box .q-mark {
+        display: inline-block;
+        color: #0d0d0d;
+        font-size: 1.1em;
+        margin-right: 6px;
+      }
+
+      .answers {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 10px;
+      }
+
+      .option {
+        display: grid;
+        grid-template-columns: 54px 1fr;
+        align-items: center;
+        min-height: 58px;
+        border: 2px solid rgba(17, 17, 17, 0.2);
+        background: #dfeaf6;
+        padding: 4px 12px 4px 4px;
+        font-weight: 800;
+        font-size: clamp(18px, 1.6vw, 32px);
+      }
+
+      .option:nth-child(1) { background: #dfeaf6; }
+      .option:nth-child(2) { background: #dfeaf6; }
+      .option:nth-child(3) { background: #dfeaf6; }
+      .option:nth-child(4) { background: #dfeaf6; }
+
+      .option-letter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #f5d400;
+        color: #111;
+        border: 3px solid #111;
+        font-size: 0.9em;
+        font-weight: 900;
+        margin-left: 8px;
+      }
+
+      .option-text {
+        padding-left: 10px;
+      }
+
+      .right-panel {
+        background: #f7f7f7;
+        padding: 18px 18px 10px 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .diagram {
+        width: 100%;
+        height: 100%;
+        min-height: 250px;
+        border: 3px solid rgba(0,0,0,0.2);
+        background: linear-gradient(180deg, #f2f2f2 0%, #ececec 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .diagram-box {
+        position: absolute;
+        width: 90%;
+        height: 72%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .diagram-col {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .diag-item {
+        background: #dfeaf6;
+        border: 2px solid rgba(0,0,0,0.4);
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 17px;
+        padding: 6px 8px;
+        text-align: center;
+      }
+
+      .diag-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .diag-title {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #f5c700;
+        border: 3px solid #111;
+        padding: 8px 26px;
+        font-size: 26px;
+        font-weight: 900;
+      }
+
+      .answer-tag {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        background: #e8f7ee;
+        border: 3px solid #1c9d60;
+        color: #0d5f2d;
+        padding: 8px 14px;
+        font-weight: 900;
+        font-size: 18px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(17, 17, 17, 0.12);
+      }
+
+      .footer-label {
+        margin-top: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .footer-label .stamp {
+        background: #ff3d3d;
+        color: #fff;
+        border: 4px solid #111;
+        border-radius: 12px;
+        padding: 12px 26px;
+        font-size: clamp(28px, 2vw, 44px);
+        font-weight: 900;
+        box-shadow: inset 0 0 0 3px rgba(255,255,255,0.15);
+      }
+
+      @page {
+        size: landscape;
+        margin: 0;
+      }
+
+      @media print {
+        html, body {
+          background: white;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+
+        .page {
+          page-break-after: always;
+          page-break-inside: avoid;
+          break-after: page;
+          box-shadow: none;
+          border-width: 3px;
+        }
+
+        #questionsContainer {
+          gap: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="questionsContainer"></div>
+
+    <script>
+      const questions = [
+        {
+          q: 'Intel 8051 microcontroller किस प्रकार का microcontroller है?',
+          options: ['64-bit microcontroller', '16-bit microcontroller', '24-bit microcontroller', '8-bit microcontroller'],
+          answer: 'D',
+          exam: 'RRB Technician Grade-I',
+          date: '19 December 2024',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: 'Intel 8051 microcontroller में कितनी internal RAM होती है?',
+          options: ['64-byte', '128-byte', '32-byte', '16-byte'],
+          answer: 'B',
+          exam: 'RRB Technician Grade-I',
+          date: '19 December 2024',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: 'Intel 8051 microcontroller में कितने 16-bit timer/counter registers होते हैं?',
+          options: ['तीन', 'एक', 'दो', 'चार'],
+          answer: 'C',
+          exam: 'RRB Technician Grade-I',
+          date: '19 December 2024',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: 'Intel 8051 और Intel 8052 में क्रमशः कितनी interrupt structures होती हैं?',
+          options: ['6 और 7', '4 और 5', '7 और 8', '5 और 6'],
+          answer: 'D',
+          exam: 'RRB Technician Grade-I',
+          date: '19 December 2024',
+          shift: 'Shift 3',
+          source: 'Testbook'
+        },
+        {
+          q: 'Microprocessor 8085 में निम्नलिखित में से कौन-सा 16-bit register है?',
+          options: ['Z register', 'W register', 'Flag register', 'Stack Pointer'],
+          answer: 'D',
+          exam: 'RRB Technician Grade-I',
+          date: '19 December 2024',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor के संबंध में निम्नलिखित में से कौन-सा कथन सही नहीं है?',
+          options: ['इसमें serial I/O control होता है, जिससे serial communication संभव होता है।', 'इसमें interrupt handling capacity बढ़ाने की व्यवस्था होती है।', 'IC 8155 और IC 8355 जैसे supporting I/O devices के साथ इसका उपयोग three-chip microcomputer बनाने में किया जा सकता है।', 'इसमें bus cycles को control करने के लिए IO/M, RD और WR जैसे control signals नहीं होते, इसलिए external bus controller आवश्यक होता है।'],
+          answer: 'D',
+          exam: 'RRB Technician Grade-I',
+          date: '19 December 2024',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में कितनी address lines होती हैं और इनके द्वारा अधिकतम कितनी memory access की जा सकती है?',
+          options: ['16 lines; 32 KB', '8 lines; 32 KB', '8 lines; 64 KB', '16 lines; 64 KB'],
+          answer: 'D',
+          exam: 'RRB Technician Grade-I',
+          date: '19 December 2024',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor का Address/Data buffer किस प्रकार का buffer है?',
+          options: ['16-bit और unidirectional', '8-bit और bi-directional', '16-bit और bi-directional', '8-bit और unidirectional'],
+          answer: 'B',
+          exam: 'RRB Technician Grade-I',
+          date: '20 December 2024',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor clock cycle किस duty cycle पर operate करता है?',
+          options: ['25%', '50%', '10%', '75%'],
+          answer: 'B',
+          exam: 'RRB Technician Grade-I',
+          date: '20 December 2024',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: 'निम्नलिखित में से कौन-सा Intel 8051 series के microcontroller का member नहीं है?',
+          options: ['80C31BH', '8044AH', '80C51BH', '87C51'],
+          answer: 'B',
+          exam: 'RRB Technician Grade-I',
+          date: '20 December 2024',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller का Port 0 अन्य ports से architectural रूप से मुख्यतः किस कारण अलग है?',
+          options: ['यह केवल memory expansion के लिए reserved है।', 'इसमें internal pull-up resistors नहीं होते।', 'यह output port के रूप में कार्य नहीं कर सकता।', 'यह bit-addressable नहीं है।'],
+          answer: 'B',
+          exam: 'RRB Technician Grade-I',
+          date: '13 March 2026',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में PSEN एक ______ output signal है, जिसका उपयोग ______ memory को access करने के लिए read strobe के रूप में किया जाता है।',
+          options: ['Active high, internal RAM', 'Active low, external program', 'Active low, internal RAM', 'Active high, external program'],
+          answer: 'B',
+          exam: 'RRB Technician Grade-I',
+          date: '13 March 2026',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में कुल कितने I/O pins होते हैं?',
+          options: ['24', '40', '26', '32'],
+          answer: 'D',
+          exam: 'RRB JE ECE',
+          date: '22 April 2025',
+          shift: 'Shift 1 CBT-2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में कौन-सा port dual function नहीं रखता?',
+          options: ['Port 1', 'Port 2', 'Port 3', 'Port 0'],
+          answer: 'A',
+          exam: 'RRB JE ECE',
+          date: '22 April 2025',
+          shift: 'Shift 2 CBT-2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller के XTAL1 और XTAL2 pins का मुख्य कार्य क्या है?',
+          options: ['External interrupt control', 'Oscillator connection for clock generation', 'Address/data bus decoding', 'Serial data transmission'],
+          answer: 'B',
+          exam: 'RRB JE ECE',
+          date: '22 April 2025',
+          shift: 'Shift 1 CBT-2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller के चार register banks में से कुल कितने register banks होते हैं?',
+          options: ['तीन', 'चार', 'छह', 'दो'],
+          answer: 'B',
+          exam: 'RRB JE ECE',
+          date: '22 April 2025',
+          shift: 'Shift 2 CBT-2',
+          source: 'Testbook'
+        },
+        {
+          q: 'निम्नलिखित में से कौन-सा 8051 microcontroller में bidirectional I/O के साथ external memory के लिए address/data bus का कार्य करता है?',
+          options: ['Port 1', 'Port 3', 'Port 0', 'Port 4'],
+          answer: 'C',
+          exam: 'RRB JE ECE',
+          date: '22 April 2025',
+          shift: 'Shift 1 CBT-2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 में निम्न instructions दिए गए हैं:\nMOV PSW, #18H\nMOV R3, #55H\nMOV A, R3\nMOV A, R3 instruction में R3 किस register bank से select होगा?',
+          options: ['Bank 3', 'Bank 0', 'Bank 2', 'Bank 1'],
+          answer: 'A',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Prepp'
+        },
+        {
+          q: '8051 microcontroller में Harvard architecture के संबंध में सही कथन कौन-सा है?',
+          options: ['इसमें केवल RAM का उपयोग होता है।', 'Program और data के लिए अलग-अलग memory होती है।', 'इसमें external memory support नहीं होता।', 'Program और data के लिए एक ही memory होती है।'],
+          answer: 'B',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller external memory को मुख्य रूप से किस माध्यम से access करता है?',
+          options: ['Direct addressing', 'Immediate addressing', 'Register addressing', 'DPTR के माध्यम से indirect addressing'],
+          answer: 'D',
+          exam: 'RRB JE CBT-2 Electronics Re-Exam',
+          date: '4 June 2025',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller reset होने पर Stack Pointer का प्रारंभिक value क्या होता है?',
+          options: ['06H', '08H', '00H', '07H'],
+          answer: 'D',
+          exam: 'RRB JE CBT-2 Electronics Re-Exam',
+          date: '4 June 2025',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में Accumulator register का address क्या है?',
+          options: ['E0H', '92H', 'B0H', '82H'],
+          answer: 'A',
+          exam: 'RRB JE CBT-2 Electronics Re-Exam',
+          date: '4 June 2025',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में PSW में कौन-कौन से flags store होते हैं?',
+          options: ['Accumulator', 'Program Counter', 'Stack Pointer', 'Program Status Word'],
+          answer: 'D',
+          exam: 'UPPCL JE Electrical',
+          date: '8 September 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में unconditional jump के लिए कौन-सा instruction प्रयोग होता है?',
+          options: ['CJNE', 'SJMP', 'JZ', 'JNZ'],
+          answer: 'B',
+          exam: 'UPPCL JE Electrical',
+          date: '8 September 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller के serial port द्वारा data rate control करने के लिए निम्नलिखित में से किसका उपयोग किया जाता है?',
+          options: ['SCON register', 'PCON register', 'SBUF register', 'RXD और TXD pins'],
+          answer: 'A',
+          exam: 'UPPCL JE Electrical',
+          date: '7 September 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में कुल कितने 8-bit ports उपलब्ध होते हैं?',
+          options: ['8', '6', '2', '4'],
+          answer: 'D',
+          exam: 'UPPCL JE Electrical',
+          date: '8 September 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में कितने Special Function Registers (SFRs) होते हैं?',
+          options: ['21', '8', '16', '11'],
+          answer: 'A',
+          exam: 'UPPCL JE EC',
+          date: '25 March 2021',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में दो 16-bit SFRs कौन-से हैं?',
+          options: ['PC और DPTR', 'SP और PSW', 'SP और DPTR', 'PC और SP'],
+          answer: 'A',
+          exam: 'UPPCL JE Previous Paper',
+          date: '27 November 2019',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller maximum कितनी program memory और external data memory access कर सकता है?',
+          options: ['64 KB, 32 KB', '32 KB, 64 KB', '64 KB, 64 KB', '16 KB, 64 KB'],
+          answer: 'C',
+          exam: 'UPPCL JE EC',
+          date: '25 March 2021',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में default condition में interrupts की स्थिति क्या होती है?',
+          options: ['केवल Timer/Counter 0 interrupt disabled होता है।', 'सभी interrupts disabled होते हैं।', 'केवल system reset interrupt disabled होता है।', 'केवल Timer/Counter 1 interrupt disabled होता है।'],
+          answer: 'B',
+          exam: 'UPPCL JE EC',
+          date: '25 March 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में flags किस register में store होते हैं?',
+          options: ['Accumulator', 'Program Counter', 'Stack Pointer', 'PSW'],
+          answer: 'D',
+          exam: 'UPPCL JE Electrical',
+          date: '8 September 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में कितने math flags होते हैं?',
+          options: ['4', '5', '6', '7'],
+          answer: 'A',
+          exam: 'UPPCL JE Electrical',
+          date: '27 November 2019',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में NOP instruction का उपयोग किस उद्देश्य से किया जाता है?',
+          options: ['DA A', 'NOP', 'SWAP', 'CLR A'],
+          answer: 'B',
+          exam: 'UPPCL JE Electrical',
+          date: '8 September 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller की कौन-सी विशेषता सही नहीं है?',
+          options: ['इसमें 1 serial port है।', 'इसमें 4 KB ROM है।', 'इसमें 4 timers हैं।', 'इसमें 128 bytes RAM है।'],
+          answer: 'C',
+          exam: 'UPPCL JE EE',
+          date: '29 March 2022',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '1993 में flash memory का उपयोग करने वाला पहला microcontroller किस company ने introduce किया था?',
+          options: ['Atmel', 'Intel', 'Alchemist', 'Ericson'],
+          answer: 'A',
+          exam: 'UPPCL JE EC',
+          date: '25 March 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller को reset करने पर निम्नलिखित में से कौन-सी स्थिति प्राप्त होती है?',
+          options: ['SP = 08H, P1 = 00H, RS0 = 1, RS1 = 1', 'SP = 07H, P1 = 00H, RS0 = 0, RS1 = 0', 'SP = 08H, P1 = FFH, RS0 = 0, RS1 = 0', 'SP = 07H, P1 = FFH, RS0 = 0, RS1 = 0'],
+          answer: 'D',
+          exam: 'UPPCL JE Previous Paper',
+          date: '27 November 2019',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller की internal RAM का size कितना है?',
+          options: ['128 Bytes', '256 Bytes', '16 Bytes', '64 Bytes'],
+          answer: 'A',
+          exam: 'RRB ALP Electronics Mechanic',
+          date: '23 January 2019',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller की internal general-purpose memory कितनी होती है?',
+          options: ['16 Byte', '128 Byte', '8 Byte', '64 Byte'],
+          answer: 'B',
+          exam: 'RRB ALP Electronics Mechanic',
+          date: '23 January 2019',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में कितने 16-bit registers होते हैं?',
+          options: ['8', '1', '4', '2'],
+          answer: 'D',
+          exam: 'RRB ALP Electronics Mechanic',
+          date: '23 January 2019',
+          shift: 'Shift 3',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में दो numbers को add करने के बाद resultant कहाँ store होता है?',
+          options: ['Erased हो जाता है', 'कहीं store नहीं होता', 'Accumulator में store होता है', 'Register में store होता है'],
+          answer: 'C',
+          exam: 'RRB ALP Electronics Mechanic',
+          date: '21 January 2019',
+          shift: 'Shift 3',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में कितने counter/timer होते हैं?',
+          options: ['2', '8', '4', '1'],
+          answer: 'A',
+          exam: 'RRB ALP Electronics Mechanic',
+          date: '21 January 2019',
+          shift: 'Shift 3',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में XTAL1 और XTAL2 pins के numbers क्या हैं?',
+          options: ['15 और 16', '18 और 19', '12 और 13', '17 और 18'],
+          answer: 'B',
+          exam: 'RRB ALP Electronics Mechanic',
+          date: '23 January 2019',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: 'RRB ALP के 8051 microcontroller के संदर्भ में hardware interfacing के दौरान I/O ports क्यों आवश्यक होते हैं?',
+          options: ['Calculations करने के लिए', 'Processing के लिए information store करने के लिए', 'Microcontroller की clock frequency बढ़ाने के लिए', 'External devices के साथ interface करने के लिए'],
+          answer: 'D',
+          exam: 'RRB ALP CBT-2 Wiremen',
+          date: '28 July 2026',
+          shift: 'Shift 2',
+          source: 'Prepp'
+        },
+        {
+          q: '8051 microcontroller में switches को Port 1 से connect किया गया है। Switch status पढ़ने से पहले port pins पर logic ‘1’ लिखने का उद्देश्य क्या है?',
+          options: ['Port register में stored data clear करना', 'Port pins को output के रूप में configure करना', 'Port pins को input के रूप में configure करना', 'Serial communication enable करना'],
+          answer: 'C',
+          exam: 'RRB ALP CBT-2 Wiremen',
+          date: '28 July 2026',
+          shift: 'Shift 2',
+          source: 'Prepp'
+        },
+        {
+          q: '8051 system में lower address byte और data एक ही lines पर multiplexed होते हैं। Lower address byte को temporarily hold करने के लिए किस hardware component की आवश्यकता होती है?',
+          options: ['Encoder', 'Multiplexer', 'Subtractor', 'Latch'],
+          answer: 'D',
+          exam: 'RRB ALP CBT-2 Wiremen',
+          date: '28 July 2026',
+          shift: 'Shift 2',
+          source: 'Prepp'
+        },
+        {
+          q: '8085A microprocessor की base clock speed कितनी होती है?',
+          options: ['5.0 MHz', '3.0 MHz', '3.5 MHz', '2.5 MHz'],
+          answer: 'B',
+          exam: 'UPPCL JE EC',
+          date: '25 March 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: 'Microprocessor terminology में DMA का full form क्या है?',
+          options: ['Direct Memory Advice', 'Direct Memory Access', 'Dual Memory Access', 'Direct Memorable Access'],
+          answer: 'B',
+          exam: 'UPPCL JE EC',
+          date: '25 March 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में RST 5 instruction का hexadecimal calling/vector address क्या है?',
+          options: ['0028H', '0018H', '0030H', '0020H'],
+          answer: 'A',
+          exam: 'UPPCL JE EC',
+          date: '25 March 2021',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में निम्नलिखित में से highest-priority interrupt कौन-सा है?',
+          options: ['RST 5.5', 'RST 3.5', 'TRAP', 'RST 7.5'],
+          answer: 'C',
+          exam: 'UPRVUNL JE EE',
+          date: '21 October 2021',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में सबसे कम priority वाला interrupt कौन-सा है?',
+          options: ['INTR', 'TRAP', 'RST 7.5', 'RST 5.5'],
+          answer: 'A',
+          exam: 'DSSSB JE Electrical',
+          date: '22 June 2022',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor के flag register में कितने one-bit flags होते हैं?',
+          options: ['4', '5', '3', '0'],
+          answer: 'B',
+          exam: 'DSSSB JE E&M',
+          date: '21 March 2022',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor का accumulator कितने bits का register होता है?',
+          options: ['16', '12', '8', '4'],
+          answer: 'C',
+          exam: 'DSSSB JE Electrical',
+          date: '22 June 2022',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor द्वारा कितनी memory locations address की जा सकती हैं?',
+          options: ['128 K', '64 K', '32 K', '16 K'],
+          answer: 'B',
+          exam: 'DSSSB JE Electrical',
+          date: '16 March 2022',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में कितनी address lines होती हैं?',
+          options: ['8', '32', '10', '16'],
+          answer: 'D',
+          exam: 'DSSSB JE Electrical',
+          date: '16 March 2022',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8051-based microcontroller में कितने bytes की memory bit-addressable होती है?',
+          options: ['8', '32', '16', '128'],
+          answer: 'C',
+          exam: 'RRB JE Electronics',
+          date: '1 September 2019',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller के साथ कुल कितनी external data memory interface की जा सकती है?',
+          options: ['256 K', '64 K', '32 K', '128 K'],
+          answer: 'B',
+          exam: 'RRB JE Electronics',
+          date: '1 September 2019',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में 16-bit timer/counter registers की संख्या कितनी है?',
+          options: ['Three', 'One', 'Two', 'Four'],
+          answer: 'C',
+          exam: 'RRB Technician Grade-I',
+          date: '19 December 2024',
+          shift: 'Shift 1',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor के multiplexed address और data lines कौन-सी हैं?',
+          options: ['AD7–AD0', 'AD8–AD1', 'AD8–AD15', 'AD9–AD16'],
+          answer: 'A',
+          exam: 'RRB JE ECE',
+          date: '22 April 2025',
+          shift: 'Shift 1 CBT-2',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में जब RD signal LOW और IO/M signal HIGH हो, तो कौन-सा machine cycle चल रहा होता है?',
+          options: ['I/O Write', 'Memory Write', 'I/O Read', 'Memory Read'],
+          answer: 'C',
+          exam: 'RRB JE ECE',
+          date: '22 April 2025',
+          shift: 'Shift 2 CBT-2',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में pending interrupts को identify करने के लिए कौन-सा instruction प्रयोग किया जाता है?',
+          options: ['ANI', 'SIM', 'RIM', 'LXI'],
+          answer: 'C',
+          exam: 'RRB JE ECE',
+          date: '22 April 2025',
+          shift: 'Shift 1 CBT-2',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में INTA′ signal का मुख्य कार्य क्या है?',
+          options: ['Interrupts enable करना', 'Interrupt request को acknowledge करना', 'Interrupts disable करना', 'Processor को reset करना'],
+          answer: 'B',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Prepp'
+        },
+        {
+          q: '8085 microprocessor में कौन-सा instruction subroutine से वापस calling program में लौटने के लिए प्रयोग किया जाता है?',
+          options: ['RET', 'RST', 'CALL', 'JMP'],
+          answer: 'A',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Prepp'
+        },
+        {
+          q: '8085 microprocessor में ORA B instruction क्या operation करता है?',
+          options: ['Accumulator से B को subtract करता है', 'Accumulator और B के बीच AND करता है', 'Accumulator में B जोड़ता है', 'Accumulator और B के बीच logical OR करता है'],
+          answer: 'D',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Prepp'
+        },
+        {
+          q: '8085 microprocessor में PCHL instruction का कार्य क्या है?',
+          options: ['PC को HL के content से load करना', 'Stack से PC को pop करना', 'HL को PC के content से load करना', 'PC को stack पर push करना'],
+          answer: 'A',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Prepp'
+        },
+        {
+          q: '8085 microprocessor में SUI 20H instruction execute करने पर क्या operation होता है?',
+          options: ['Accumulator से 20H subtract होता है', 'Accumulator से 20H borrow के साथ subtract होता है', 'Accumulator में 20H add होता है', 'Accumulator की तुलना 20H से होती है'],
+          answer: 'A',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Prepp'
+        },
+        {
+          q: '8085 microprocessor में RST 3 instruction execute होने के बाद Program Counter में कौन-सा value आएगा?',
+          options: ['0030H', '0024H', '0018H', '0003H'],
+          answer: 'C',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Prepp'
+        },
+        {
+          q: '8085 microprocessor में RST 3 का vector address निर्धारित करने पर Program Counter किस fixed address पर जाता है?',
+          options: ['0008H', '0010H', '0018H', '0020H'],
+          answer: 'C',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Prepp'
+        },
+        {
+          q: '8051 microcontroller में दिए गए instructions के बाद active register bank कौन-सा होगा?\nMOV PSW,#18H\nMOV R3,#55H\nMOV A,R3',
+          options: ['Bank 3', 'Bank 0', 'Bank 2', 'Bank 1'],
+          answer: 'A',
+          exam: 'RRB JE CBT-2',
+          date: '2 July 2026',
+          shift: 'Shift 1',
+          source: 'Prepp'
+        },
+        {
+          q: '8085 किस प्रकार का microprocessor है?',
+          options: ['4-bit', '8-bit', '16-bit', '32-bit'],
+          answer: 'B',
+          exam: 'ISRO VSSC Scientific Assistant Physics',
+          date: '6 August 2017',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: 'Microprocessor में अगले instruction को fetch करने के लिए आवश्यक address को रखने वाला register कौन-सा है?',
+          options: ['Instruction Register', 'Stack Pointer', 'Accumulator', 'Program Counter'],
+          answer: 'D',
+          exam: 'ISRO VSSC Technical Assistant Electronics',
+          date: '11 February 2024',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor system में memory-mapped I/O के संबंध में कौन-सा कथन सही है?',
+          options: ['I/O devices में 8-bit address होता है।', 'I/O devices को IN और OUT instructions से access किया जाता है।', 'अधिकतम 256 input और 256 output devices हो सकते हैं।', 'I/O data पर arithmetic और logic operations directly perform किए जा सकते हैं।'],
+          answer: 'D',
+          exam: 'ISRO Scientist EC',
+          date: '2011',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में कौन-सा interrupt non-maskable होता है?',
+          options: ['RST 5.5', 'RST 7.5', 'TRAP', 'RST 5.5 और RST 7.5 दोनों'],
+          answer: 'C',
+          exam: 'ISRO Scientist CS',
+          date: '2017',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor के flag register में arithmetic या Boolean operation के result का most significant bit किस flag में indicate होता है?',
+          options: ['Carry Status Flag', 'Parity Flag', 'Sign Flag', 'Zero Flag'],
+          answer: 'C',
+          exam: 'UJVNL AE EE',
+          date: '2016',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor के निम्न program के बाद flag register का content क्या होगा?\nSUB A\nMVI B,01H\nDCR B\nHLT',
+          options: ['54H', '00H', '01H', '45H'],
+          answer: 'A',
+          exam: 'ISRO Scientist CS',
+          date: '2015',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में दिए गए program के लिए, यदि DATA1 = A7H हो, तो PORT1 पर output क्या होगा?\nMVI A, DATA1\nORA A\nJM DISPLAY\nOUT PORT1\nCMA\nDISPLAY: ADI 01H\nOUT PORT1',
+          options: ['A7H', '58H', '00H', '59H'],
+          answer: 'D',
+          exam: 'ISRO Scientist EC',
+          date: '2017',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8085 microprocessor में यदि A = 08H, B = 07H और Carry Flag = 0 है, तो B को उसके original value का तीन गुना बनाने के लिए कौन-सा instruction sequence सही है?',
+          options: ['MOV A,B → ADD B → RLC → MOV B,A', 'MOV A,B → RLC → ADD B → MOV B,A', 'ADD B → MOV A,B → RLC → MOV B,A', 'MOV B,A → ADD B → RLC → MOV A,B'],
+          answer: 'B',
+          exam: 'ISRO VSSC Technical Assistant Electronics',
+          date: '11 February 2024',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8086 microprocessor का 16-bit flag register मुख्य रूप से किसका indication देता है?',
+          options: ['ALU operation के result की condition', 'Memory की condition', 'केवल addition का result', 'केवल subtraction का result'],
+          answer: 'A',
+          exam: 'ISRO LPSC Technical Assistant Electronics',
+          date: '7 August 2016',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: '8086 microprocessor में TRAP flag का उपयोग किस उद्देश्य से किया जाता है?',
+          options: ['Single stepping', 'Operation की speed बढ़ाने के लिए', 'Overflow detection', 'Physical address calculation'],
+          answer: 'A',
+          exam: 'ISRO URSC Technical Assistant Electronics',
+          date: '24 March 2019',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: 'Microprocessor के साथ wait state का उपयोग किस प्रकार के devices को interface करने के लिए किया जाता है?',
+          options: ['Interrupt devices', 'Processor की speed बढ़ाने के लिए', 'Slow devices', 'इनमें से कोई नहीं'],
+          answer: 'C',
+          exam: 'ISRO URSC Technical Assistant Electronics',
+          date: '3 November 2022',
+          shift: 'Shift 2',
+          source: 'Testbook'
+        },
+        {
+          q: '8051 microcontroller में serial data के interrupt bits TI और RI को कौन-सा register hold करता है?',
+          options: ['SMOD', 'SCON', 'PCON', 'IE'],
+          answer: 'B',
+          exam: 'ISRO URSC Technical Assistant Electronics',
+          date: '13 November 2016',
+          shift: 'N/A',
+          source: 'Testbook'
+        },
+        {
+          q: 'Intel 8051 और Intel 8052 में क्रमशः कितनी interrupt structures होती हैं?',
+          options: ['6 और 7', '4 और 5', '7 और 8', '5 और 6'],
+          answer: 'D',
+          exam: 'RRB Technician Grade-I',
+          date: '19 December 2024',
+          shift: 'Shift 3',
+          source: 'Testbook'
+        }
+      ];
+
+      const container = document.getElementById('questionsContainer');
+
+      questions.forEach((item, index) => {
+        const page = document.createElement('section');
+        page.className = 'page';
+
+        const questionNumber = index + 1;
+
+        const qContent = `
+          <div class="header">Microprocessor and Microcontroller</div>
+          <div class="meta">
+            <div class="meta-box"><span class="label">Exam:</span> <span class="value exam-value">${item.exam}</span></div>
+            <div class="meta-box"><span class="label">Date:</span> <span class="value date-value">${item.date}</span></div>
+            <div class="meta-box"><span class="label">Shift:</span> <span class="value shift-value">${item.shift}</span></div>
+          </div>
+          <div class="content">
+            <div class="left-panel">
+              <div class="question-box"><span class="q-mark">Q${questionNumber}.</span> ${item.q}</div>
+              <div class="answers">
+                ${item.options.map((opt, i) => `
+                  <div class="option">
+                    <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                    <div class="option-text">${opt}</div>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="footer-label">
+                <div class="stamp">ज्ञान मंच</div>
+              </div>
+            </div>
+            <div class="right-panel">
+              <div class="diagram">
+                <div class="diagram-box">
+                  <div class="diagram-col">
+                    <div class="diag-item">External Interrupt 0</div>
+                    <div class="diag-item">Timer 0 Interrupt</div>
+                    <div class="diag-item">External Interrupt 1</div>
+                    <div class="diag-item">Timer 1 Interrupt</div>
+                    <div class="diag-item">Serial Port Interrupt</div>
+                  </div>
+                  <div class="diagram-col diag-right">
+                    <div class="diag-item">Interrupt Vector 0003H</div>
+                    <div class="diag-item">Interrupt Vector 000BH</div>
+                    <div class="diag-item">Interrupt Vector 0013H</div>
+                    <div class="diag-item">Interrupt Vector 001BH</div>
+                    <div class="diag-item">Interrupt Vector 0023H</div>
+                  </div>
+                </div>
+                <div class="diag-title">8051 / 8052</div>
+              </div>
+              <div class="answer-tag">Answer: ${item.answer}</div>
+            </div>
+          </div>
+        `;
+
+        page.innerHTML = qContent;
+        container.appendChild(page);
+      });
+    </script>
+  </body>
+</html>
